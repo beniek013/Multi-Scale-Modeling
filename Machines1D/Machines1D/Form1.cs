@@ -32,6 +32,7 @@ namespace Machines1D
                     g.Clear(SystemColors.Control); //Clear the draw area
                     using (Pen pen = new Pen(Color.Black, 1))
                     {
+
                         int rows = matrix.GetUpperBound(0) + 1 - matrix.GetLowerBound(0); // = 3, this value is not used
                         int columns = matrix.GetUpperBound(1) + 1 - matrix.GetLowerBound(1); // = 4
 
@@ -57,15 +58,35 @@ namespace Machines1D
                 flag = false;
             }
         }
-
+        private int[,] RotateMatrixCounterClockwise(int[,] oldMatrix)
+        {
+            int[,] newMatrix = new int[oldMatrix.GetLength(1), oldMatrix.GetLength(0)];
+            int newColumn, newRow = 0;
+            for (int oldColumn = oldMatrix.GetLength(1) - 1; oldColumn >= 0; oldColumn--)
+            {
+                newColumn = 0;
+                for (int oldRow = 0; oldRow < oldMatrix.GetLength(0); oldRow++)
+                {
+                    newMatrix[newRow, newColumn] = oldMatrix[oldRow, oldColumn];
+                    newColumn++;
+                }
+                newRow++;
+            }
+            return newMatrix;
+        }
         private void Bt_start_Click(object sender, EventArgs e)
         {
             var value1 = textBox1.Text;
             var value2 = textBox2.Text;
+            var value3 = textBox3.Text;
             if (int.TryParse(value1, out int regula) 
-                && int.TryParse(value2, out int size))
+                && int.TryParse(value2, out int size)
+                && int.TryParse(value3, out int iterations))
             {
-                matrix = Classes.Machine.OneDimension(regula, size);
+                matrix = Classes.Machine.OneDimension(regula, size, iterations);
+                matrix = RotateMatrixCounterClockwise(matrix);
+                matrix = RotateMatrixCounterClockwise(matrix);
+                matrix = RotateMatrixCounterClockwise(matrix);
                 flag = true;
                 Paint += Draw2DArray;
             }

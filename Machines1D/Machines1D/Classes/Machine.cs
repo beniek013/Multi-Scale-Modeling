@@ -8,21 +8,21 @@ namespace Machines1D.Classes
 {
     public class Machine
     {
-        public static int[,] OneDimension(int regula, int size)
+        public static int[,] OneDimension(int regula, int size, int iterations)
         {
             var x = size;
-            var y = size;
-            var matrix = new int[y, x + 2];
+            var y = iterations;
+            var matrix = new int[x + 2, y];
             var tab = new int[x + 2];
             tab[x/2] = 1;
             var binary = Convert.ToString(regula, 2).PadLeft(8, '0');
-            for (int i = 0; i < x; i++)
+            for (int i = 0; i < y; i++)
             {
                 var tab_temp = new int[x + 2];
                 tab.CopyTo(tab_temp, 0);
                 for (int t = 0; t < tab.Length; t++)
                 {
-                    matrix[i, t] = tab[t];
+                    matrix[t, i] = tab[t];
                 }
                 for (int j = 1; j < x + 1; j++)
                 {
