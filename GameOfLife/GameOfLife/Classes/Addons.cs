@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
 
 namespace GameOfLife.Classes
 {
     public class Addons
     {
-        public static int[,] FillRandomly(int[,] matrix) {
+        public static int[,] FillRandomly(int[,] matrix)
+        {
             Random rnd = new Random();
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
@@ -21,30 +17,40 @@ namespace GameOfLife.Classes
             return matrix;
         }
 
-        public static int[,] FillWithOscillator(int[,] matrix) {
-            matrix[10, 12] = 1;
-            matrix[10, 13] = 1;
-            matrix[10, 14] = 1;
+        public static int[,] FillWithOscillator(int[,] matrix)
+        {
+            var halfWidth = matrix.GetLength(0) / 2;
+            var halfHeight = matrix.GetLength(1) / 2;
+            matrix[halfWidth, halfHeight - 1] = 1;
+            matrix[halfWidth, halfHeight] = 1;
+            matrix[halfWidth, halfHeight + 1] = 1;
             return matrix;
         }
 
         public static int[,] FillWithGlider(int[,] matrix)
         {
-            matrix[20, 20] = 1;
-            matrix[20, 21] = 1;
-            matrix[21, 19] = 1;
-            matrix[21, 20] = 1;
-            matrix[22, 21] = 1;
+            var halfWidth = matrix.GetLength(0) / 2;
+            var halfHeight = matrix.GetLength(1) / 2;
+            matrix[halfWidth - 1, halfHeight] = 1;
+            matrix[halfWidth - 1, halfHeight + 1] = 1;
+            matrix[halfWidth, halfHeight - 1] = 1;
+            matrix[halfWidth, halfHeight] = 1;
+            matrix[halfWidth + 1, halfHeight + 1] = 1;
             return matrix;
         }
 
-        public static int[,] FillWithConstants(int[,] matrix) {
-            matrix[20, 20] = 1;
-            matrix[20, 21] = 1;
-            matrix[21, 19] = 1;
-            matrix[21, 22] = 1;
-            matrix[22, 20] = 1;
-            matrix[22, 21] = 1;
+
+
+        public static int[,] FillWithConstants(int[,] matrix)
+        {
+            var halfWidth = matrix.GetLength(0) / 2;
+            var halfHeight = matrix.GetLength(1) / 2;
+            matrix[halfWidth - 1, halfHeight] = 1;
+            matrix[halfWidth - 1, halfHeight + 1] = 1;
+            matrix[halfWidth, halfHeight - 1] = 1;
+            matrix[halfWidth, halfHeight + 2] = 1;
+            matrix[halfWidth + 1, halfHeight] = 1;
+            matrix[halfWidth + 1, halfHeight + 1] = 1;
             return matrix;
         }
     }

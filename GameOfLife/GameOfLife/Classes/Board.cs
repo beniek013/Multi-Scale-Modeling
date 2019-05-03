@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace GameOfLife.Classes
 {
@@ -6,11 +7,14 @@ namespace GameOfLife.Classes
     {
         public static int[,] matrix;
 
-        public Board() { }
+        public Board()
+        {
+            matrix = new int[50, 50];
+        }
 
         public Board(int width, int height, string pattern)
         {
-            matrix = new int[width, width];
+            matrix = new int[width, height];
             switch (pattern)
             {
                 case "Constant":
@@ -20,6 +24,7 @@ namespace GameOfLife.Classes
                     matrix = Addons.FillWithGlider(matrix);
                     break;
                 case "Manual":
+
                     break;
                 case "Oscillator":
                     matrix = Addons.FillWithOscillator(matrix);
@@ -31,13 +36,10 @@ namespace GameOfLife.Classes
         }
         public void GetNextIteration()
         {
-            Form1 t = new Form1();
-            var width = matrix.GetLength(0);
-            var height = matrix.GetLength(1);
             var newMat = (int[,])matrix.Clone();
-            for (int i = 0; i < width - 1; i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < height - 1; j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     int numberOfNeighbors = CountNeihbors(matrix, i, j);
                     if (matrix[i, j] == 0)
@@ -54,7 +56,6 @@ namespace GameOfLife.Classes
             }
             matrix = newMat;
         }
-
         private static int CountNeihbors(int[,] mat, int i, int j)
         {
             var counter = 0;
@@ -84,7 +85,6 @@ namespace GameOfLife.Classes
         }
         public void Paint(Graphics g)
         {
-            Brush CELL_COLOR = Brushes.Gray;
             if (matrix != null)
             {
                 for (int r = 0; r < matrix.GetLength(0); r++)
@@ -92,10 +92,17 @@ namespace GameOfLife.Classes
                     for (int c = 0; c < matrix.GetLength(1); c++)
                     {
                         if (matrix[r, c] == 1)
-                            g.FillRectangle(CELL_COLOR, c * 5, r * 5, 5, 5);
+                            g.FillRectangle(Brushes.OrangeRed, c * 5, r * 5, 5, 5);
                     }
                 }
             }
+        }
+
+        public void MarkOneCell(MouseEventArgs me)
+        {
+            int x = me.X / 5;
+            int y = me.Y / 5;
+            matrix[y, x] = 1;
         }
     }
 }

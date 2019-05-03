@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameOfLife.Classes;
+using System;
 using System.Windows.Forms;
-using GameOfLife.Classes;
 
 namespace GameOfLife
 {
     public partial class Form1 : Form
     {
-        public Board mat;
+        public Board board;
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +14,7 @@ namespace GameOfLife
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            mat = new Board();
+            board = new Board();
         }
 
         private void Bt1_Click(object sender, EventArgs e)
@@ -31,19 +24,18 @@ namespace GameOfLife
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            mat.Paint(e.Graphics);
+            board.Paint(e.Graphics);
         }
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            mat.GetNextIteration();
+            board.GetNextIteration();
             Refresh();
         }
 
         private void PictureBox1_Click(object sender, EventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs)e;
-            Point coordinates = me.Location;
-            textBox1.Text += me.X;
+            board.MarkOneCell(me);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -59,13 +51,25 @@ namespace GameOfLife
             if (int.TryParse(tb1, out int width) && int.TryParse(tb2, out int height) && cb != "Choose pattern")
             {
                 timer1.Start();
-                mat = new Board(width, height, cb);
-                pictureBox1.Width = width * 5;
-                pictureBox1.Height = height * 5;
-                timer1.Start();
+                board = new Board(width, height, cb);
+                pictureBox1.Width = height * 5;
+                pictureBox1.Height = width * 5;
                 bt1.Visible = true;
+                button4.Visible = true;
+                button3.Visible = true;
                 button1.Visible = true;
             }
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            if (timer1.Interval > 100)
+                timer1.Interval -= 100;
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            timer1.Interval += 300;
         }
     }
 }
