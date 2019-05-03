@@ -13,22 +13,20 @@ namespace GameOfLife
 {
     public partial class Form1 : Form
     {
-        public Machine2d mat;
+        public Board mat;
         public Form1()
         {
             InitializeComponent();
-            pictureBox1.Width = 50 * 5;
-            pictureBox1.Height = 50 * 5;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            mat = new Machine2d();
-            timer1.Start();
+            mat = new Board();
         }
 
         private void Bt1_Click(object sender, EventArgs e)
         {
+            timer1.Start();
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -39,6 +37,34 @@ namespace GameOfLife
         {
             mat.GetNextIteration();
             Refresh();
+        }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            Point coordinates = me.Location;
+            textBox1.Text += me.X;
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
+            var tb1 = textBox1.Text;
+            var tb2 = textBox2.Text;
+            if (int.TryParse(tb1, out int width) && int.TryParse(tb2, out int height))
+            {
+                mat = new Board(width, height);
+                pictureBox1.Width = width * 5;
+                pictureBox1.Height = height * 5;
+                timer1.Start();
+                bt1.Visible = true;
+                button1.Visible = true;
+            }
         }
     }
 }

@@ -45,7 +45,6 @@ namespace GameOfLife.Classes
             matrix[21, 22] = 1;
             matrix[22, 20] = 1;
             matrix[22, 21] = 1;
-
             return matrix;
         }
     }
