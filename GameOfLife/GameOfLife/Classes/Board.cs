@@ -8,10 +8,26 @@ namespace GameOfLife.Classes
 
         public Board() { }
 
-        public Board(int width, int height)
+        public Board(int width, int height, string pattern)
         {
             matrix = new int[width, width];
-            matrix = Addons.FillWithGlider(matrix);
+            switch (pattern)
+            {
+                case "Constant":
+                    matrix = Addons.FillWithConstants(matrix);
+                    break;
+                case "Glider":
+                    matrix = Addons.FillWithGlider(matrix);
+                    break;
+                case "Manual":
+                    break;
+                case "Oscillator":
+                    matrix = Addons.FillWithOscillator(matrix);
+                    break;
+                case "Random":
+                    matrix = Addons.FillRandomly(matrix);
+                    break;
+            }
         }
         public void GetNextIteration()
         {

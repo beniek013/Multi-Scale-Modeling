@@ -53,12 +53,13 @@ namespace GameOfLife
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            timer1.Start();
             var tb1 = textBox1.Text;
             var tb2 = textBox2.Text;
-            if (int.TryParse(tb1, out int width) && int.TryParse(tb2, out int height))
+            var cb = comboBox1.Text;
+            if (int.TryParse(tb1, out int width) && int.TryParse(tb2, out int height) && cb != "Choose pattern")
             {
-                mat = new Board(width, height);
+                timer1.Start();
+                mat = new Board(width, height, cb);
                 pictureBox1.Width = width * 5;
                 pictureBox1.Height = height * 5;
                 timer1.Start();
