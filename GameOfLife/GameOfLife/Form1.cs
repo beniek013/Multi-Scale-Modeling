@@ -36,6 +36,7 @@ namespace GameOfLife
         {
             MouseEventArgs me = (MouseEventArgs)e;
             board.MarkOneCell(me);
+            Refresh();
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -63,13 +64,13 @@ namespace GameOfLife
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            if (timer1.Interval > 100)
-                timer1.Interval -= 100;
+            if (timer1.Interval > 50)
+                timer1.Interval -= 50;
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            timer1.Interval += 300;
+            timer1.Interval += 50;
         }
     }
 }

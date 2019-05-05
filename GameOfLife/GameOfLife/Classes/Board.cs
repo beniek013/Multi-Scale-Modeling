@@ -24,7 +24,6 @@ namespace GameOfLife.Classes
                     matrix = Addons.FillWithGlider(matrix);
                     break;
                 case "Manual":
-
                     break;
                 case "Oscillator":
                     matrix = Addons.FillWithOscillator(matrix);
