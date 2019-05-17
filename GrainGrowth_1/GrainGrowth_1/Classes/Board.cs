@@ -32,7 +32,7 @@ namespace GrainGrowth_1.Classes
             FillWithZeros();
             switch (pattern)
             {
-                case "Radnom":
+                case "Random":
                     matrix = Addons.FillRandomly(matrix, grainAmount, colorAmount);
                     break;
                 case "Manual":

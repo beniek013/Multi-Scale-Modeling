@@ -33,8 +33,8 @@ namespace GrainGrowth_1.Classes
         public static Cell[,] FillRadius(Cell[,] matrix, int grainAmount, int colorAmount, int r)
         {
             Random rnd = new Random();
-            var counter = 1;
             int x, y;
+            var dict = new Dictionary<int,int>();
             var iterator = colorAmount;
             while (grainAmount > 0)
             {
@@ -42,13 +42,15 @@ namespace GrainGrowth_1.Classes
                     iterator = 1;
                 x = rnd.Next(1, matrix.GetLength(0));
                 y = rnd.Next(1, matrix.GetLength(1));
-               //if (isRadiusAvailable(matrix,x,y))
-                
-                    matrix[rnd.Next(1, matrix.GetLength(0)), rnd.Next(1, matrix.GetLength(1))].value = iterator++;
-                    grainAmount--;
-                
+                matrix[rnd.Next(1, matrix.GetLength(0)), rnd.Next(1, matrix.GetLength(1))].value = iterator++;
+                grainAmount--;
             }
             return matrix;
+        }
+
+        private static double GetDistance(double x1, double y1, double x2, double y2)
+        {
+            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
 
         public static Cell[,] FillHomogeneusly(Cell[,] matrix, int colorAmount, int space)
