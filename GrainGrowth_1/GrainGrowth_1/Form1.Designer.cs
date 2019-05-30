@@ -45,6 +45,7 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,7 +125,7 @@
             "Random",
             "Homogeneus",
             "Radius"});
-            this.comboBox1.Location = new System.Drawing.Point(23, 213);
+            this.comboBox1.Location = new System.Drawing.Point(23, 182);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(101, 21);
             this.comboBox1.TabIndex = 11;
@@ -176,7 +177,7 @@
             this.comboBox3.Items.AddRange(new object[] {
             "Periodical",
             "Sorption"});
-            this.comboBox3.Location = new System.Drawing.Point(23, 244);
+            this.comboBox3.Location = new System.Drawing.Point(23, 213);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(101, 21);
             this.comboBox3.TabIndex = 17;
@@ -198,12 +199,27 @@
             this.textBox4.TabIndex = 19;
             this.textBox4.Text = "6";
             // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Von Neumann",
+            "Pentagonal",
+            "Hexagonal",
+            "Moore"});
+            this.comboBox2.Location = new System.Drawing.Point(23, 240);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(101, 21);
+            this.comboBox2.TabIndex = 20;
+            this.comboBox2.Text = "Von Neumann";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(737, 519);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.comboBox3);
@@ -246,6 +262,7 @@
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 

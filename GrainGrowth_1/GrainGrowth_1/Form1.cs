@@ -54,7 +54,7 @@ namespace GrainGrowth_1
                 pictureBox1.Width = size2 * 5;
                 pictureBox1.Height = size1 * 5;
                 
-                board = new Board(ga, size1, size2, comboBox1.Text, int.Parse(textBox3.Text), int.Parse(textBox4.Text));
+                board = new Board(ga, size1, size2, comboBox1.Text, int.Parse(textBox3.Text), int.Parse(textBox4.Text), comboBox2.Text);
                 timer1.Start();
                 Refresh();
             }
