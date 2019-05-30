@@ -12,39 +12,38 @@ namespace GrainGrowth_1.Classes
         private Cell[,] matrix;
         public static Dictionary<int, Brush> dictionary;
         private int grainAmount;
-        private int colorAmount;
         private int lastClicked;
+        public static List<Brush> brushes;
 
         public Board()
         {
-            matrix = new Cell[100, 100];
-            FillWithZeros();
-            colorAmount = 2;
+            //matrix = new Cell[100, 100];
+            //FillWithZeros();
         }
 
-        public Board(int ga, int ca, int size1, int size2, string pattern, string space,string r)
+        public Board(int ga, int size1, int size2, string pattern, int width, int height)
         {
             matrix = new Cell[size1, size2];
             dictionary = new Dictionary<int, Brush>();
             grainAmount = ga;
-            colorAmount = ca;
             lastClicked = 0;
             FillWithZeros();
+            brushes = Addons.FillBrush(width * height);
             switch (pattern)
             {
                 case "Random":
-                    matrix = Addons.FillRandomly(matrix, grainAmount, colorAmount);
+                    matrix = Addons.FillRandomly(matrix, grainAmount);
                     break;
                 case "Manual":
                     break;
                 case "Homogeneus":
-                    matrix = Addons.FillHomogeneusly(matrix, colorAmount, int.Parse(space));
+                    matrix = Addons.FillHomogeneusly(matrix, grainAmount, width, height);
                     break;
                 case "Radius":
                     //matrix = Addons.FillRadius(matrix, grainAmount, colorAmount, int.Parse(r));
                     break;
                 default:
-                    matrix = Addons.FillRandomly(matrix, grainAmount, colorAmount);
+                    matrix = Addons.FillRandomly(matrix, grainAmount);
                     break;
             }
         }
@@ -139,75 +138,18 @@ namespace GrainGrowth_1.Classes
         }
         public void Paint(Graphics g)
         {
+            Brush brush;
             if (matrix != null)
             {
                 for (int r = 0; r < matrix.GetLength(0); r++)
                 {
                     for (int c = 0; c < matrix.GetLength(1); c++)
                     {
-                        if (matrix[r, c].value == 1)
+                        if (matrix[r, c].value != 0)
                         {
-                            g.FillRectangle(Brushes.Green, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Green;
+                            g.FillRectangle(brushes[matrix[r,c].value], c * 5, r * 5, 5, 5);
+                            matrix[r, c].color = brushes[matrix[r, c].value];
                         }
-                        if (matrix[r, c].value == 2)
-                        {
-                            g.FillRectangle(Brushes.Red, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Red;
-                        }
-                        if (matrix[r, c].value == 3)
-                        {
-                            g.FillRectangle(Brushes.Black, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Black;
-                        }
-                        if (matrix[r, c].value == 4)
-                        {
-                            g.FillRectangle(Brushes.White, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.White;
-                        }
-                        if (matrix[r, c].value == 5)
-                        {
-                            g.FillRectangle(Brushes.Blue, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Blue;
-                        }
-                        if (matrix[r, c].value == 6)
-                        {
-                            g.FillRectangle(Brushes.Violet, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Violet;
-                        }
-                        if (matrix[r, c].value == 7)
-                        {
-                            g.FillRectangle(Brushes.Pink, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Pink;
-                        }
-                        if (matrix[r, c].value == 8)
-                        {
-                            g.FillRectangle(Brushes.Yellow, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Yellow;
-                        }
-                        if (matrix[r, c].value == 9)
-                        {
-                            g.FillRectangle(Brushes.Silver, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Silver;
-                        }
-                        if (matrix[r, c].value == 10)
-                        {
-                            g.FillRectangle(Brushes.Gray, c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = Brushes.Gray;
-                        }
-                        /*if (matrix[r, c].value > 4) {
-                            if (dictionary.Keys.Contains(matrix[r, c].value))
-                            {
-                                brush = dictionary[matrix[r, c].value];
-                                g.FillRectangle(brush, c * 5, r * 5, 5, 5);
-                            }
-                            else
-                            {
-                                brush = Addons.PickBrush();
-                                dictionary[matrix[r, c].value] = brush;
-                                g.FillRectangle(brush, c * 5, r * 5, 5, 5);
-                            }
-                        }*/
                     }
                 }
             }
@@ -215,10 +157,6 @@ namespace GrainGrowth_1.Classes
 
         public void MarkOneCell(MouseEventArgs me)
         {
-            if (lastClicked > colorAmount)
-            {
-                lastClicked = 1;
-            }
             int x = me.X / 5;
             int y = me.Y / 5;
             if (matrix[y, x].value == 0)

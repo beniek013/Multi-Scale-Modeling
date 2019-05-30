@@ -47,15 +47,14 @@ namespace GrainGrowth_1
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(comboBox2.Text, out int ca)
-                && int.TryParse(grainAmount.Text, out int ga)
+            if (int.TryParse(grainAmount.Text, out int ga)
                 && int.TryParse(textBox1.Text, out int size1)
                 && int.TryParse(textBox2.Text, out int size2))
             {
                 pictureBox1.Width = size2 * 5;
                 pictureBox1.Height = size1 * 5;
                 
-                board = new Board(ga, ca, size1, size2, comboBox1.Text, textBox3.Text, textBox4.Text);
+                board = new Board(ga, size1, size2, comboBox1.Text, int.Parse(textBox3.Text), int.Parse(textBox4.Text));
                 timer1.Start();
                 Refresh();
             }

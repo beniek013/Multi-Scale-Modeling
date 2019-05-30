@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrainGrowth_1.Classes
 {
     public class Addons
     {
-        public static Cell[,] FillRandomly(Cell[,] matrix, int grainAmount, int colorAmount)
+        public static Cell[,] FillRandomly(Cell[,] matrix, int grainAmount)
         {
             Random rnd = new Random();
             int x, y;
-            var iterator = colorAmount;
-            while (grainAmount > 0)
+            int iterator = 0;
+            while (grainAmount >= 0)
             {
-                if (iterator == colorAmount+1)
-                    iterator = 1;
                 x = rnd.Next(1, matrix.GetLength(0));
                 y = rnd.Next(1, matrix.GetLength(1));
                 if (matrix[x, y].value == 0)
@@ -34,7 +29,7 @@ namespace GrainGrowth_1.Classes
         {
             Random rnd = new Random();
             int x, y;
-            var dict = new Dictionary<int,int>();
+            var dict = new Dictionary<int, int>();
             var iterator = colorAmount;
             while (grainAmount > 0)
             {
@@ -48,38 +43,48 @@ namespace GrainGrowth_1.Classes
             return matrix;
         }
 
+        public static List<Brush> FillBrush(int grainAmount)
+        {
+            var brushes = new List<Brush>();
+            for (int i = 0; i < grainAmount +1; i++)
+            {
+                brushes.Add(PickBrush());
+            }
+            return brushes;
+        }
+
         private static double GetDistance(double x1, double y1, double x2, double y2)
         {
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
 
-        public static Cell[,] FillHomogeneusly(Cell[,] matrix, int colorAmount, int space)
+        public static Cell[,] FillHomogeneusly(Cell[,] matrix, int grainAmount, int amount1, int amount2)
         {
-            var width = matrix.GetLength(0);
-            var height = matrix.GetLength(1);
-            var iterator = colorAmount;
-            for (int i = 2; i < width; i += space) {
-                for (int j = 2; j < height; j += space) {
-                    if (iterator == colorAmount + 1)
-                        iterator = 1;
+            var height = matrix.GetLength(0);
+            var width = matrix.GetLength(1);
+            var step1 = height / amount1;
+            var step2 = width / amount2;
+            var iterator = 1;
+            for (int i = step1/2; i < height; i += step1)
+            {
+                for (int j = step2/2; j < width; j += step2)
+                {
                     matrix[i, j].value = iterator++;
                 }
             }
             return matrix;
         }
 
+        public static Random rnd = new Random();
         public static Brush PickBrush()
         {
-            Brush result = Brushes.Transparent;
-
-            Random rnd = new Random();
 
             Type brushesType = typeof(Brushes);
 
             PropertyInfo[] properties = brushesType.GetProperties();
 
             int random = rnd.Next(properties.Length);
-            result = (Brush)properties[random].GetValue(null, null);
+            var result = (Brush)properties[random].GetValue(null, null);
 
             return result;
         }
