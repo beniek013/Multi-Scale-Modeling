@@ -14,6 +14,7 @@ namespace GrainGrowth_1.Classes
         private int grainAmount;
         private int colorAmount;
         private int lastClicked;
+        Random rnd;
 
         public Board()
         {
@@ -28,6 +29,7 @@ namespace GrainGrowth_1.Classes
             dictionary = new Dictionary<int, Brush>();
             grainAmount = ga;
             colorAmount = ca;
+            rnd = new Random();
             lastClicked = 0;
             FillWithZeros();
             switch (pattern)
@@ -94,6 +96,9 @@ namespace GrainGrowth_1.Classes
         {
             int temp1, temp2, temp3, temp4;
             var neighbours = new List<Cell>();
+            
+            
+
             if (period)
             {
                 temp1 = i == 0 ? matrix.GetLength(0) - 1 : i - 1;      //i-1
@@ -108,25 +113,22 @@ namespace GrainGrowth_1.Classes
             }
             else
             {
-                if (i == 0)
-                    neighbours.Add(new Cell());
-                else
-                    neighbours.Add(matrix[i - 1, j]);
-
-                if(i==matrix.GetLength(0) -1)
-                    neighbours.Add(new Cell());
-                else
-                    neighbours.Add(matrix[i + 1, j]);
-
-                if (j == 0)
-                    neighbours.Add(new Cell());
-                else
-                    neighbours.Add(matrix[i, j-1]);
-
-                if (j == matrix.GetLength(1) -1 )
-                    neighbours.Add(new Cell());
-                else
-                    neighbours.Add(matrix[i, j +1]);
+                //pentagonalne losowe
+                var rand= rnd.Next(1, 5);
+                switch (rand) {
+                    case 1:
+                        neighbours = FirstVariant(i,j);
+                        break;
+                    case 2:
+                        neighbours = SecondVariant(i, j);
+                        break;
+                    case 3:
+                        neighbours = ThirdVariant(i, j);
+                        break;
+                    case 4:
+                        neighbours = FourthVariant(i, j);
+                        break;
+                }
             }
             
             if (neighbours.Any(x => x.value > 0))
@@ -137,6 +139,83 @@ namespace GrainGrowth_1.Classes
             }
             return 0;
         }
+
+        private List<Cell> FirstVariant(int i, int j)
+        {
+            int temp1, temp2, temp3, temp4;
+            temp1 = i == 0 ? matrix.GetLength(0) - 1 : i - 1;      //i-1
+            temp2 = j == 0 ? matrix.GetLength(1) - 1 : j - 1;      //j-1
+            temp3 = i == matrix.GetLength(0) - 1 ? 0 : i + 1;      //i+1
+            temp4 = j == matrix.GetLength(1) - 1 ? 0 : j + 1;      //j+1
+
+            var neighbours = new List<Cell>();
+
+            neighbours.Add(matrix[temp1, temp4]);
+            neighbours.Add(matrix[i, temp4]);
+            neighbours.Add(matrix[temp1, j]);
+            neighbours.Add(matrix[temp1, temp2]);
+            neighbours.Add(matrix[i, temp4]);
+
+            return neighbours;
+        }
+
+        private List<Cell> SecondVariant(int i, int j)
+        {
+            int temp1, temp2, temp3, temp4;
+            temp1 = i == 0 ? matrix.GetLength(0) - 1 : i - 1;      //i-1
+            temp2 = j == 0 ? matrix.GetLength(1) - 1 : j - 1;      //j-1
+            temp3 = i == matrix.GetLength(0) - 1 ? 0 : i + 1;      //i+1
+            temp4 = j == matrix.GetLength(1) - 1 ? 0 : j + 1;      //j+1
+
+            var neighbours = new List<Cell>();
+
+            neighbours.Add(matrix[temp3, temp4]);
+            neighbours.Add(matrix[i, temp4]);
+            neighbours.Add(matrix[temp3, j]);
+            neighbours.Add(matrix[temp3, temp2]);
+            neighbours.Add(matrix[i, temp4]);
+
+            return neighbours;
+        }
+
+        private List<Cell> ThirdVariant(int i, int j)
+        {
+            int temp1, temp2, temp3, temp4;
+            temp1 = i == 0 ? matrix.GetLength(0) - 1 : i - 1;      //i-1
+            temp2 = j == 0 ? matrix.GetLength(1) - 1 : j - 1;      //j-1
+            temp3 = i == matrix.GetLength(0) - 1 ? 0 : i + 1;      //i+1
+            temp4 = j == matrix.GetLength(1) - 1 ? 0 : j + 1;      //j+1
+
+            var neighbours = new List<Cell>();
+
+            neighbours.Add(matrix[temp1, j]);
+            neighbours.Add(matrix[temp3, j]);
+            neighbours.Add(matrix[temp1, temp2]);
+            neighbours.Add(matrix[i, temp2]);
+            neighbours.Add(matrix[temp3, temp2]);
+
+            return neighbours;
+        }
+
+        private List<Cell> FourthVariant(int i, int j)
+        {
+            int temp1, temp2, temp3, temp4;
+            temp1 = i == 0 ? matrix.GetLength(0) - 1 : i - 1;      //i-1
+            temp2 = j == 0 ? matrix.GetLength(1) - 1 : j - 1;      //j-1
+            temp3 = i == matrix.GetLength(0) - 1 ? 0 : i + 1;      //i+1
+            temp4 = j == matrix.GetLength(1) - 1 ? 0 : j + 1;      //j+1
+
+            var neighbours = new List<Cell>();
+
+            neighbours.Add(matrix[temp1, j]);
+            neighbours.Add(matrix[temp3, j]);
+            neighbours.Add(matrix[temp1, temp4]);
+            neighbours.Add(matrix[i, temp4]);
+            neighbours.Add(matrix[temp3, temp4]);
+
+            return neighbours;
+        }
+
         public void Paint(Graphics g)
         {
             if (matrix != null)
