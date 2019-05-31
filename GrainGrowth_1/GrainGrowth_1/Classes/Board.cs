@@ -227,7 +227,6 @@ namespace GrainGrowth_1.Classes
 
         private int Pentagonal(int i, int j, bool period)
         {
-            int temp1, temp2, temp3, temp4;
             var neighbours = new List<Cell>();
             if (period)
             {
@@ -282,7 +281,6 @@ namespace GrainGrowth_1.Classes
 
         private int Hexagonal(int i, int j, bool period)
         {
-            int temp1, temp2, temp3, temp4;
             var neighbours = new List<Cell>();
             if (period)
             {
@@ -449,7 +447,6 @@ namespace GrainGrowth_1.Classes
 
         public void Paint(Graphics g)
         {
-            Brush brush;
             if (matrix != null)
             {
                 for (int r = 0; r < matrix.GetLength(0); r++)
