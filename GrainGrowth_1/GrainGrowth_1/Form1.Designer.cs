@@ -46,6 +46,11 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +67,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(64, 59);
+            this.textBox1.Location = new System.Drawing.Point(66, 12);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(27, 20);
             this.textBox1.TabIndex = 1;
@@ -71,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 62);
+            this.label2.Location = new System.Drawing.Point(53, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(12, 13);
             this.label2.TabIndex = 4;
@@ -79,7 +84,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(23, 59);
+            this.textBox2.Location = new System.Drawing.Point(25, 12);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(27, 20);
             this.textBox2.TabIndex = 5;
@@ -87,21 +92,21 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 500;
+            this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // grainAmount
             // 
-            this.grainAmount.Location = new System.Drawing.Point(23, 97);
+            this.grainAmount.Location = new System.Drawing.Point(25, 50);
             this.grainAmount.Name = "grainAmount";
             this.grainAmount.Size = new System.Drawing.Size(27, 20);
             this.grainAmount.TabIndex = 6;
-            this.grainAmount.Text = "10";
+            this.grainAmount.Text = "30";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 101);
+            this.label1.Location = new System.Drawing.Point(52, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 8;
@@ -109,7 +114,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(23, 369);
+            this.startButton.Location = new System.Drawing.Point(25, 291);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(103, 48);
             this.startButton.TabIndex = 10;
@@ -125,7 +130,7 @@
             "Random",
             "Homogeneus",
             "Radius"});
-            this.comboBox1.Location = new System.Drawing.Point(23, 182);
+            this.comboBox1.Location = new System.Drawing.Point(25, 135);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(101, 21);
             this.comboBox1.TabIndex = 11;
@@ -133,7 +138,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(23, 304);
+            this.button1.Location = new System.Drawing.Point(25, 226);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(45, 23);
             this.button1.TabIndex = 12;
@@ -143,7 +148,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(74, 304);
+            this.button2.Location = new System.Drawing.Point(76, 226);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(52, 23);
             this.button2.TabIndex = 13;
@@ -153,7 +158,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(23, 339);
+            this.button3.Location = new System.Drawing.Point(25, 261);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(53, 23);
             this.button3.TabIndex = 15;
@@ -163,7 +168,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(82, 339);
+            this.button4.Location = new System.Drawing.Point(84, 261);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(44, 23);
             this.button4.TabIndex = 16;
@@ -177,7 +182,7 @@
             this.comboBox3.Items.AddRange(new object[] {
             "Periodical",
             "Sorption"});
-            this.comboBox3.Location = new System.Drawing.Point(23, 213);
+            this.comboBox3.Location = new System.Drawing.Point(25, 166);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(101, 21);
             this.comboBox3.TabIndex = 17;
@@ -185,7 +190,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(23, 135);
+            this.textBox3.Location = new System.Drawing.Point(25, 88);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(40, 20);
             this.textBox3.TabIndex = 18;
@@ -193,7 +198,7 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(74, 135);
+            this.textBox4.Location = new System.Drawing.Point(76, 88);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(39, 20);
             this.textBox4.TabIndex = 19;
@@ -206,19 +211,67 @@
             "Von Neumann",
             "Pentagonal",
             "Hexagonal",
-            "Moore"});
-            this.comboBox2.Location = new System.Drawing.Point(23, 240);
+            "Moore",
+            "Hexagonal(L)",
+            "Hexagonal(R)"});
+            this.comboBox2.Location = new System.Drawing.Point(25, 193);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(101, 21);
             this.comboBox2.TabIndex = 20;
             this.comboBox2.Text = "Von Neumann";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(25, 345);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(103, 54);
+            this.button5.TabIndex = 21;
+            this.button5.Text = "MC ";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(25, 464);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(101, 42);
+            this.button6.TabIndex = 22;
+            this.button6.Text = "ENERGY ON/OFF";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(25, 405);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(103, 23);
+            this.button7.TabIndex = 23;
+            this.button7.Text = "runMc";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(25, 434);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(103, 23);
+            this.button8.TabIndex = 24;
+            this.button8.Text = "nextStep";
+            this.button8.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(737, 519);
+            this.ClientSize = new System.Drawing.Size(737, 607);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
@@ -263,6 +316,11 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
 

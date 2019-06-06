@@ -14,9 +14,12 @@ namespace GrainGrowth_1
     public partial class Form1 : Form
     {
         Board board;
+        MC monteCarlo;
+        bool energy;
         public Form1()
         {
             InitializeComponent();
+            energy = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -26,7 +29,7 @@ namespace GrainGrowth_1
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            board.Paint(e.Graphics);
+            board.Paint(e.Graphics,energy);
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -64,11 +67,13 @@ namespace GrainGrowth_1
         private void Button1_Click(object sender, EventArgs e)
         {
             timer1.Start();
+            timer2.Start();
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
             timer1.Stop();
+            timer2.Stop();
         }
 
         private void Button3_Click(object sender, EventArgs e)
@@ -80,6 +85,24 @@ namespace GrainGrowth_1
         private void Button4_Click(object sender, EventArgs e)
         {
             timer1.Interval += 200;
+        }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            monteCarlo = new MC(board);
+            timer1.Stop();
+            timer2.Start();
+        }
+
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            monteCarlo.GetNextIteration();
+            Refresh();
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            energy = !energy;
         }
     }
 }

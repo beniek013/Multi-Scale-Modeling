@@ -49,6 +49,7 @@
     <Compile Include="Classes\Addons.cs" />
     <Compile Include="Classes\Board.cs" />
     <Compile Include="Classes\Cell.cs" />
+    <Compile Include="Classes\MC.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

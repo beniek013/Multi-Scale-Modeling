@@ -50,13 +50,28 @@ namespace GrainGrowth_1.Classes
             }
         }
 
+        public Cell[,] GetMatrix() {
+            return matrix;
+        }
+
+        public List<Brush> GetBrushes()
+        {
+            return brushes;
+        }
+
         private void FillWithZeros()
         {
+            var id = 1;
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
-                    matrix[i, j] = new Cell();
+                    matrix[i, j] = new Cell
+                    {
+                        id = id++,
+                        x = i,
+                        y = j
+                    };
                 }
             }
         }
@@ -85,13 +100,21 @@ namespace GrainGrowth_1.Classes
                                 case "Hexagonal":
                                     newMat[i, j].value = Hexagonal(i, j, period);
                                     break;
+                                case "Hexagonal(L)":
+                                    newMat[i, j].value = Hexagonal(i, j, period,1);
+                                    break;
+                                case "Hexagonal(R)":
+                                    newMat[i, j].value = Hexagonal(i, j, period, 2);
+                                    break;
                             }
                         }
+                        newMat[i, j].id = matrix[i, j].id;
                     }
                 }
                 matrix = newMat;
             }
         }
+
         private Cell[,] GetMatrixCopy()
         {
             var newMat = new Cell[matrix.GetLength(0), matrix.GetLength(1)];
@@ -101,6 +124,8 @@ namespace GrainGrowth_1.Classes
                 {
                     newMat[i, j] = new Cell();
                     newMat[i, j].value = matrix[i, j].value;
+                    newMat[i, j].x = matrix[i, j].x;
+                    newMat[i, j].y = matrix[i, j].y;
                 }
             }
             return newMat;
@@ -279,13 +304,17 @@ namespace GrainGrowth_1.Classes
             return 0;
         }
 
-        private int Hexagonal(int i, int j, bool period)
+        private int Hexagonal(int i, int j, bool period, int c = 0)
         {
             var neighbours = new List<Cell>();
+            int variant;
             if (period)
             {
-                var rand = rnd.Next(1, 3);
-                switch (rand)
+                if (c == 0)
+                    variant = rnd.Next(1, 3);
+                else
+                    variant = c;
+                switch (variant)
                 {
                     case 1:
                         neighbours = LeftVariant(i, j);
@@ -445,7 +474,7 @@ namespace GrainGrowth_1.Classes
             return neighbours;
         }
 
-        public void Paint(Graphics g)
+        public void Paint(Graphics g, bool energy = false)
         {
             if (matrix != null)
             {
@@ -453,10 +482,17 @@ namespace GrainGrowth_1.Classes
                 {
                     for (int c = 0; c < matrix.GetLength(1); c++)
                     {
-                        if (matrix[r, c].value != 0)
+                        if (energy)
                         {
-                            g.FillRectangle(brushes[matrix[r, c].value], c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = brushes[matrix[r, c].value];
+                            g.FillRectangle(new SolidBrush(Color.FromArgb(255 / 4 * matrix[r,c].energy, 0, 0)), c * 5, r * 5, 5, 5);
+                        }
+                        else
+                        {
+                            if (matrix[r, c].value != 0)
+                            {
+                                g.FillRectangle(brushes[matrix[r, c].value], c * 5, r * 5, 5, 5);
+                                matrix[r, c].color = brushes[matrix[r, c].value];
+                            }
                         }
                     }
                 }
@@ -470,5 +506,7 @@ namespace GrainGrowth_1.Classes
             if (matrix[y, x].value == 0)
                 matrix[y, x].value = lastClicked++;
         }
+
+
     }
 }

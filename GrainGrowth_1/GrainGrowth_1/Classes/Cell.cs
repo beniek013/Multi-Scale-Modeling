@@ -9,10 +9,12 @@ namespace GrainGrowth_1.Classes
 {
     public class Cell
     {
+        public int id;
         public int x;
         public int y;
         public Brush color;
         public int value;
+        public int energy;
 
         public Cell() {
             value = 0;
