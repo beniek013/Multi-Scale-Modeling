@@ -12,13 +12,15 @@ namespace GrainGrowth_1.Classes
         private Random rnd;
         private List<Cell> randomCells;
         private Cell[,] matrix;
-        private List<Brush> brushes;
+        private double kt;
+        private string type;
         
-        public MC(Board board)
+        public MC(Board board, double kt, string type)
         {
             matrix = board.GetMatrix();
-            brushes = board.GetBrushes();
             rnd = new Random();
+            this.type = type;   
+            this.kt = kt;
         }
 
         public void GetNextIteration() {
@@ -26,25 +28,38 @@ namespace GrainGrowth_1.Classes
             GetRadnomCells();
 
             foreach (var cell in randomCells) {
-                VonNeuman(cell);
+                Fun(cell);
             }
         }
 
-        private void VonNeuman(Cell cell)
+        private void Fun(Cell cell)
         {
             int temp1, temp2, temp3, temp4;
-            var neighbours = new List<Cell>();
-
             temp1 = cell.x == 0 ? matrix.GetLength(0) - 1 : cell.x - 1;      //i-1
             temp2 = cell.y == 0 ? matrix.GetLength(1) - 1 : cell.y - 1;      //j-1
             temp3 = cell.x == matrix.GetLength(0) - 1 ? 0 : cell.x + 1;      //i+1
             temp4 = cell.y == matrix.GetLength(1) - 1 ? 0 : cell.y + 1;      //j+1
+            var neighbours = new List<Cell>();
+            if (type == "Moore")
+            {
 
-            neighbours.Add(matrix[temp1, cell.y]);
-            neighbours.Add(matrix[temp3, cell.y]);
-            neighbours.Add(matrix[cell.x, temp2]);
-            neighbours.Add(matrix[cell.x, temp4]);
+                neighbours.Add(matrix[temp1, cell.y]);
+                neighbours.Add(matrix[temp3, cell.y]);
+                neighbours.Add(matrix[cell.x, temp2]);
+                neighbours.Add(matrix[cell.x, temp4]);
 
+                neighbours.Add(matrix[temp1, temp2]);
+                neighbours.Add(matrix[temp1, temp4]);
+                neighbours.Add(matrix[temp3, temp2]);
+                neighbours.Add(matrix[temp3, temp4]);
+            }
+            else
+            {
+                neighbours.Add(matrix[temp1, cell.y]);
+                neighbours.Add(matrix[temp3, cell.y]);
+                neighbours.Add(matrix[cell.x, temp2]);
+                neighbours.Add(matrix[cell.x, temp4]);
+            }
             var randNeighbour = neighbours[rnd.Next(0, neighbours.Count)];
 
             int energyBefore = CountEnergy(neighbours, cell.value);
@@ -58,7 +73,7 @@ namespace GrainGrowth_1.Classes
             else
             {
                 double value = rnd.NextDouble();
-                if (Math.Exp(-1 * energyAfter - energyBefore / 6) < value)
+                if (Math.Exp(-1 * (energyAfter - energyBefore) / kt) < value)
                 {
                     matrix[cell.x, cell.y].value = randNeighbour.value;
                     matrix[cell.x, cell.y].energy = energyAfter;
@@ -88,25 +103,6 @@ namespace GrainGrowth_1.Classes
                 {
                     randomCells.Add(matrix[randomI, randomJ]);
                     counter--;
-                }
-            }
-        }
-
-
-        public void Paint(Graphics g)
-        {
-            if (matrix != null)
-            {
-                for (int r = 0; r < matrix.GetLength(0); r++)
-                {
-                    for (int c = 0; c < matrix.GetLength(1); c++)
-                    {
-                        if (matrix[r, c].value != 0)
-                        {
-                            g.FillRectangle(brushes[matrix[r, c].value], c * 5, r * 5, 5, 5);
-                            matrix[r, c].color = brushes[matrix[r, c].value];
-                        }
-                    }
                 }
             }
         }

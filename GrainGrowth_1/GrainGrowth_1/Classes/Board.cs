@@ -484,7 +484,7 @@ namespace GrainGrowth_1.Classes
                     {
                         if (energy)
                         {
-                            g.FillRectangle(new SolidBrush(Color.FromArgb(255 / 4 * matrix[r,c].energy, 0, 0)), c * 5, r * 5, 5, 5);
+                            g.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 255 / 5 * matrix[r, c].energy)), c * 5, r * 5, 5, 5);
                         }
                         else
                         {

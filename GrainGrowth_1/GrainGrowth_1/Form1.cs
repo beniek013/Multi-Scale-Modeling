@@ -16,6 +16,7 @@ namespace GrainGrowth_1
         Board board;
         MC monteCarlo;
         bool energy;
+        double kt;
         public Form1()
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace GrainGrowth_1
                 
                 board = new Board(ga, size1, size2, comboBox1.Text, int.Parse(textBox3.Text), int.Parse(textBox4.Text), comboBox2.Text);
                 timer1.Start();
+                timer2.Stop();
                 Refresh();
             }
 
@@ -89,9 +91,12 @@ namespace GrainGrowth_1
 
         private void Button5_Click(object sender, EventArgs e)
         {
-            monteCarlo = new MC(board);
-            timer1.Stop();
-            timer2.Start();
+            if (double.TryParse(textBox5.Text, out kt))
+            {
+                monteCarlo = new MC(board, kt, comboBox2.Text);
+                timer1.Stop();
+                timer2.Start();
+            }
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
@@ -103,6 +108,7 @@ namespace GrainGrowth_1
         private void Button6_Click(object sender, EventArgs e)
         {
             energy = !energy;
+            Refresh();
         }
     }
 }
