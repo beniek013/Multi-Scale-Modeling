@@ -67,16 +67,15 @@ namespace GrainGrowth_1.Classes
 
             if ((energyAfter - energyBefore) <= 0)
             {
-                matrix[cell.x, cell.y].value = randNeighbour.value;
-                matrix[cell.x, cell.y].energy = energyAfter;
+                cell.value = randNeighbour.value;
+                cell.energy = energyAfter;
             }
             else
             {
-                double value = rnd.NextDouble();
-                if (Math.Exp(-1 * (energyAfter - energyBefore) / kt) < value)
+                if (Math.Exp(-1 * (energyAfter - energyBefore) / kt) < rnd.NextDouble())
                 {
-                    matrix[cell.x, cell.y].value = randNeighbour.value;
-                    matrix[cell.x, cell.y].energy = energyAfter;
+                    cell.value = randNeighbour.value;
+                    cell.energy = energyAfter;
                 }
             }
         }
