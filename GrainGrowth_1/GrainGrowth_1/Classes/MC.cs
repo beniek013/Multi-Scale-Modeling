@@ -70,14 +70,14 @@ namespace GrainGrowth_1.Classes
                 cell.value = randNeighbour.value;
                 cell.energy = energyAfter;
             }
-            else
+            /*else
             {
                 if (Math.Exp(-1 * (energyAfter - energyBefore) / kt) < rnd.NextDouble())
                 {
                     cell.value = randNeighbour.value;
                     cell.energy = energyAfter;
                 }
-            }
+            }*/
         }
 
         private int CountEnergy(List<Cell> neighbours, int value)

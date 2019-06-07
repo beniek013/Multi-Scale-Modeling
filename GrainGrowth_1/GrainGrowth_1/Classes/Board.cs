@@ -30,7 +30,7 @@ namespace GrainGrowth_1.Classes
             lastClicked = 0;
             this.kind = kind;
             FillWithZeros();
-            brushes = Addons.FillBrush(width * height);
+            brushes = Addons.FillBrush(ga > width * height ? ga : width * height);
             switch (pattern)
             {
                 case "Random":
