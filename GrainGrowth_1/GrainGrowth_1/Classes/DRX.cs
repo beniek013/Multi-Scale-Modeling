@@ -50,6 +50,7 @@ namespace GrainGrowth_1.Classes
             {
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
+                    neighbours = new List<Cell>();
                     temp1 = i == 0 ? matrix.GetLength(0) - 1 : i - 1;      //i-1
                     temp2 = j == 0 ? matrix.GetLength(1) - 1 : j - 1;      //j-1
                     temp3 = i == matrix.GetLength(0) - 1 ? 0 : i + 1;      //i+1

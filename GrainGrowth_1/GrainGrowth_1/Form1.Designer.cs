@@ -107,7 +107,7 @@
             this.grainAmount.Name = "grainAmount";
             this.grainAmount.Size = new System.Drawing.Size(27, 20);
             this.grainAmount.TabIndex = 6;
-            this.grainAmount.Text = "5";
+            this.grainAmount.Text = "30";
             // 
             // label1
             // 

@@ -156,13 +156,13 @@ namespace GrainGrowth_1
 
         private void Button10_Click(object sender, EventArgs e)
         {
-            string path = @"C:\Users\benie.DESKTOP-K69F1U6\source\repos\Multi-Scale-Modeling\GrainGrowth_1\density.txt";
+            string path = $@"C:\Users\benie.DESKTOP-K69F1U6\source\repos\Multi-Scale-Modeling\GrainGrowth_1\density{label4.Text}.txt";
             StreamWriter sw = new StreamWriter(path);
             for (int i = 0; i < board.matrix.GetLength(0); i++)
             {
                 for (int j = 0; j < board.matrix.GetLength(1); j++)
                 {
-                    sw.WriteLine(board.matrix[i, j].density);
+                    sw.WriteLine($"[{i},{j}] {board.matrix[i, j].density}");
                 }
             }
             sw.Close();
