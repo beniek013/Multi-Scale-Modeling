@@ -8,13 +8,14 @@ namespace GrainGrowth_1.Classes
 {
     public class Board
     {
-        private Cell[,] matrix;
+        public Cell[,] matrix;
         public static Dictionary<int, Brush> dictionary;
         private int grainAmount;
         private int lastClicked;
         public static List<Brush> brushes;
         Random rnd;
         private string kind; // rodzaj sąsiedztwa;
+        public double criticalRo;
         public Board()
         {
             //matrix = new Cell[100, 100];
@@ -29,6 +30,7 @@ namespace GrainGrowth_1.Classes
             rnd = new Random();
             lastClicked = 0;
             this.kind = kind;
+            
             FillWithZeros();
             brushes = Addons.FillBrush(ga > width * height ? ga : width * height);
             switch (pattern)
@@ -122,10 +124,14 @@ namespace GrainGrowth_1.Classes
             {
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
-                    newMat[i, j] = new Cell();
-                    newMat[i, j].value = matrix[i, j].value;
-                    newMat[i, j].x = matrix[i, j].x;
-                    newMat[i, j].y = matrix[i, j].y;
+                    newMat[i, j] = new Cell
+                    {
+                        value = matrix[i, j].value,
+                        x = matrix[i, j].x,
+                        y = matrix[i, j].y,
+                        isRecrystal = matrix[i, j].isRecrystal,
+                        density = matrix[i, j].density
+                    };
                 }
             }
             return newMat;
@@ -222,24 +228,6 @@ namespace GrainGrowth_1.Classes
                 else
                     neighbours.Add(matrix[i, j + 1]);
             }
-
-            /*
-             //pentagonalne losowe
-                var rand= rnd.Next(1, 5);
-                switch (rand) {
-                    case 1:
-                        neighbours = FirstVariant(i,j);
-                        break;
-                    case 2:
-                        neighbours = SecondVariant(i, j);
-                        break;
-                    case 3:
-                        neighbours = ThirdVariant(i, j);
-                        break;
-                    case 4:
-                        neighbours = FourthVariant(i, j);
-                        break;
-             */
 
             if (neighbours.Any(x => x.value > 0))
             {
@@ -474,7 +462,7 @@ namespace GrainGrowth_1.Classes
             return neighbours;
         }
 
-        public void Paint(Graphics g, bool energy = false)
+        public void Paint(Graphics g, Cell[,] matrix, bool energy = false)
         {
             if (matrix != null)
             {
@@ -490,8 +478,16 @@ namespace GrainGrowth_1.Classes
                         {
                             if (matrix[r, c].value != 0)
                             {
-                                g.FillRectangle(brushes[matrix[r, c].value], c * 5, r * 5, 5, 5);
-                                matrix[r, c].color = brushes[matrix[r, c].value];
+                                if (matrix[r, c].isRecrystal)
+                                {
+                                    g.FillRectangle(new SolidBrush(Color.Red), c * 5, r * 5, 5, 5);
+                                    matrix[r, c].color = new SolidBrush(Color.Red);
+                                }
+                                else
+                                {
+                                    g.FillRectangle(brushes[matrix[r, c].value], c * 5, r * 5, 5, 5);
+                                    matrix[r, c].color = brushes[matrix[r, c].value];
+                                }
                             }
                         }
                     }
@@ -506,7 +502,6 @@ namespace GrainGrowth_1.Classes
             if (matrix[y, x].value == 0)
                 matrix[y, x].value = lastClicked++;
         }
-
 
     }
 }

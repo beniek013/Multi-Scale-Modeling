@@ -25,7 +25,7 @@ namespace GrainGrowth_1.Classes
 
         public void GetNextIteration() {
             randomCells = new List<Cell>();
-            GetRadnomCells();
+            GetRandomCells();
 
             foreach (var cell in randomCells) {
                 Fun(cell);
@@ -70,14 +70,6 @@ namespace GrainGrowth_1.Classes
                 cell.value = randNeighbour.value;
                 cell.energy = energyAfter;
             }
-            /*else
-            {
-                if (Math.Exp(-1 * (energyAfter - energyBefore) / kt) < rnd.NextDouble())
-                {
-                    cell.value = randNeighbour.value;
-                    cell.energy = energyAfter;
-                }
-            }*/
         }
 
         private int CountEnergy(List<Cell> neighbours, int value)
@@ -90,7 +82,7 @@ namespace GrainGrowth_1.Classes
             return energy;
         }
 
-        private void GetRadnomCells()
+        private void GetRandomCells()
         {
             var counter = matrix.GetLength(0) * matrix.GetLength(1);
             int randomI, randomJ;

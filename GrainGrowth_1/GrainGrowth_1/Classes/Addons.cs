@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
+using System.Linq;
 
 namespace GrainGrowth_1.Classes
 {
@@ -87,6 +88,11 @@ namespace GrainGrowth_1.Classes
             var result = (Brush)properties[random].GetValue(null, null);
 
             return result;
+        }
+
+        public static bool IsLimit(Cell cell, List<Cell> cells)
+        {
+            return cells.Any(x => x.value != cell.value);
         }
     }
 }

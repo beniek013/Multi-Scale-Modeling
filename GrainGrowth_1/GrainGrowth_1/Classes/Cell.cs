@@ -15,9 +15,13 @@ namespace GrainGrowth_1.Classes
         public Brush color;
         public int value;
         public int energy;
+        public double density;
+        public bool isRecrystal;
 
         public Cell() {
             value = 0;
+            isRecrystal = false;
         }
+
     }
 }
