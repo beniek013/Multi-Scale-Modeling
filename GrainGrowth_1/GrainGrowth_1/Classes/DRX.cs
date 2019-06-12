@@ -45,7 +45,8 @@ namespace GrainGrowth_1.Classes
         private void Recrystalize()
         {
             int temp1, temp2, temp3, temp4;
-            List<Cell> neighbours = new List<Cell>();
+            List<Cell> neighbours;
+            List<Cell> temp = new List<Cell>();
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
                 for (int j = 0; j < matrix.GetLength(1); j++)
@@ -61,14 +62,23 @@ namespace GrainGrowth_1.Classes
                     neighbours.Add(matrix[i, temp2]);
                     neighbours.Add(matrix[i, temp4]);
 
+                    if (matrixPreviousIteration.Any(_ => neighbours.Select(x => x.id).Contains(_.id))
+                        && matrix[i,j].density > neighbours.Max(x => x.density))
+                    {
+                        matrix[i, j].isRecrystal = true;
+                        matrix[i, j].density = 0;
+                        temp.Add(matrix[i, j]);
+                    }
+
                     if (matrix[i, j].density > criticalRo && Addons.IsLimit(matrix[i, j], neighbours))
                     {
                         matrix[i, j].isRecrystal = true;
                         matrix[i, j].density = 0;
-                        matrixPreviousIteration.Add(matrix[i, j]);
+                        temp.Add(matrix[i, j]);
                     }
                 }
             }
+            matrixPreviousIteration = temp;
         }
 
         private void Distribute()
